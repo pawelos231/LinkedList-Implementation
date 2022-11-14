@@ -38,8 +38,35 @@ public:
 		
 		
 	}
-	void InsertNodeAtGivenPoint(int PointToInsert) {
-	
+	void InsertNodeAtGivenPoint(int PointToInsert, int data) {
+		Node* newNode = new Node(data);
+		Node* temp = head;
+		Node* temp2 = NULL;
+		int helperValue = 0;
+
+		if (head == NULL) {
+			head = newNode;
+		}
+		while (temp != NULL) {
+			temp = temp->next;
+			helperValue++;
+		}
+		if (helperValue < PointToInsert || PointToInsert < 0) {
+			LOG("the given number is too large or too small number")
+			return;
+		}
+		temp = head;
+
+		for (int i = 0; i < PointToInsert - 1; i++) {
+			temp2 = temp;
+			temp = temp->next;
+		}
+		if (temp2 == NULL || temp2->next == NULL) {
+			return;
+		}
+		temp2->next = newNode;
+		newNode->next = temp;
+
 	}
 
 	void LogAllNodes() {
@@ -99,6 +126,9 @@ int main() {
 	LOG("elements in list:")
 	list.LogAllNodes();
 	list.deleteNode(2);
+	LOG("elements in list:")
+	list.LogAllNodes();
+	list.InsertNodeAtGivenPoint(3, 10);
 
 	LOG("Elements in list:")
 	list.LogAllNodes();
